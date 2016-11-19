@@ -142,3 +142,8 @@ embed{z-index:0;}
 .ed2k_size{width:90px;}
 .ed2k_dl_div{margin:10px 0px; padding:14px;}
 .ed2k_dl_button{border:1px solid #9e9e61; margin-left:20px; background:#e9f5dc;}
+
+.img_left{float:left;}
+.img_center{float:center;}
+.img_right{float:right;}
+.img_justify{float:justify;}

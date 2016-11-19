@@ -164,7 +164,7 @@ var FlyEditor = (function() {
 			underline : {
 				title : '下划线'
 			},
-			strike : {
+			del : {
 				title : '删除线'
 			},
 			color : {
@@ -283,7 +283,7 @@ var FlyEditor = (function() {
 			}
 		};
 
-		var TOOL_BAR_NAMES = [ 'format', 'font', 'size', 'bold', 'italic', 'underline', 'strike', '|', 'color',
+		var TOOL_BAR_NAMES = [ 'format', 'font', 'size', 'bold', 'italic', 'underline', 'del', '|', 'color',
 				'bgcolor', 'url', 'align', 'list', 'sup', 'sub', /* 'indent', */'block', 'code', 'escape', '|',
 				'table', 'img', 'face', '|', /* 'video', 'audio', */
 				'flash', 'ed2k', 'magnet', 'thunder', '|', /* 'cancel' */
@@ -412,7 +412,7 @@ var FlyEditor = (function() {
 				case 'h5':
 				case 'h6':
 				case 'pre':
-				case 'strike':
+				case 'del':
 				case 'sup':
 				case 'sub':
 				case 'thunder':
