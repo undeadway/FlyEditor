@@ -147,3 +147,16 @@ embed{z-index:0;}
 .img_center{float:center;}
 .img_right{float:right;}
 .img_justify{float:justify;}
+
+.list_type_1{list-style-type:decimal;}
+.list_type_disc{list-style-type:disc;}
+.list_type_circle{list-style-type:circle;}
+.list_type_square{list-style-type:square;}
+.list_type_a{list-style-type:lower-alpha;}
+.list_type_A{list-style-type:upper-alpha;}
+.list_type_i{list-style-type:lower-roman;}
+.list_type_I{list-style-type:upper-roman;}
+.list_type_greek{list-style-type:lower-greek;}
+.list_type_shu{list-style-type:cjk-ideographic;}
+.list_type_hira{list-style-type:hiragana;}
+.list_type_kata{list-style-type:katakana;}

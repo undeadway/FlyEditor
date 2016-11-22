@@ -785,10 +785,10 @@ var FlyEditor = (function() {
 		preview : function() {
 			hideSubMenu();
 			try {
-				var title = htmlEscape(doc.forms[0].title.value);
-				var html = '<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><link rel="stylesheet" type="text/css" href="/res/flies/FlyShow.css" />'
+				var title = htmlEscape(doc.forms[0].title.value || '');
+				var html = '<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8" /><link rel="stylesheet" type="text/css" href="/res/flies/FlyShow.css" />'
 						+ '<link rel="stylesheet" type="text/css" href="/res/flies/FlyHighLighter.css" /><title>'
-						+ title + ' 预览</title></head><body>' + htmlEscape(textArea.value) + '</body></html>';
+						+ title + ' 预览</title></head><body>' + htmlEscape(textArea.value || '') + '</body></html>';
 				var pvWindow = newWindow('FlyEditor Preview', Date.now(),
 						'width=800,height=600,resizable=no,scrollbars=yes');
 				pvWindow.document.write(html);
