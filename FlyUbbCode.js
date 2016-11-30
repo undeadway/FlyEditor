@@ -253,14 +253,16 @@
 
 	var replaceList = function() {
 
-		function _replaceList(inner) {
+		function _replaceList(inner, tag) {
+
+			tag = tag || 'ul';
 
 			if(inner.isEmpty()) return "";
 
 			inner = inner.split("[*]");
 			inner.shift(); // 因为 split 之后第一个 [*] 并不需要，直接 join 会多出莫名其妙的一行，所以去掉
 
-			var output = "<ul><li>" + inner.join("</li><li>") + "</li></ul>";
+			var output = "<" + tag + "><li>" + inner.join("</li><li>") + "</li></" + tag + ">";
 
 			return output;
 
@@ -270,12 +272,12 @@
 
 			while(/\[list\]((.|\s)*?)\[\/list\]/.test(str)) {
 
-				str = str.replace("[list]" + RegExp.$1 + "[/list]", _replaceList(inner));
+				str = str.replace("[list]" + RegExp.$1 + "[/list]", _replaceList(RegExp.$1));
 			}
 
 			while(/\[list=(a|A|1|\*|#|o|i|I|α|一|あ|ア)( [^\[]+)*\]((.|\s)*?)\[\/list\]/.test(str)) {
 
-				var tag = 'ul',
+				var tag,
 					type = RegExp.$1,
 					params = RegExp.$2,
 					outParam = '',
@@ -331,7 +333,7 @@
 						break;
 				}
 
-				str = str.replace("[list=" + type + params + "]" + inner + "[/list]", _replaceList(inner));
+				str = str.replace("[list=" + type + params + "]" + inner + "[/list]", _replaceList(inner, tag));
 
 			}
 
@@ -395,7 +397,7 @@
 			str = replaceFlash(str);
 
 			str = str.replace(/\[\/(size|color|font|bgcolor)\]/g, '</span>');
-			str = str.replace(/\[(\/)?(sub|sup|del|p|pre|i|b|tr|td)]/g, '<$1$2>');
+			str = str.replace(/\[(\/)?(sub|sup|del|p|pre|i|b|tr|td|code|mark)]/g, '<$1$2>');
 			str = str.replace(/\[(\/)?h([1-6])]/g, '<$1h$2>');
 			str = str.replace(/\[size=(\d+?)]/g, '<span class="size_$1">');
 			str = str.replace(/\[color=\#([^\[\<]+?)]/g, '<span class="color_$1">');

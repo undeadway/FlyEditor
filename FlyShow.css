@@ -64,7 +64,7 @@
 .color_400040{color:#400040}
 .color_400080{color:#400080}
 .color_000000{color:#000000}
-.color_808080{color:#808080} 
+.color_808080{color:#808080}
 .color_808040{color:#808040}
 .color_808080{color:#808080}
 .color_408080{color:#408080}
@@ -124,8 +124,8 @@
 
 .fieldset{border:1px solid #5eacd1; padding:10px; margin:5px 15px 10px 15px; position:relative; background:#faf9ef;}
 .legend{font-weight:bold; color:#014387;}
-.fieldset div{overflow:auto; max-width:726px; padding-bottom:5px;}
-.code div{width:694px;}
+.fieldset div{overflow:auto; padding-bottom:5px;}
+/*.code div{width:97%;}*/
 .flyimg{cursor:pointer;}
 embed{z-index:0;}
 
@@ -148,6 +148,7 @@ embed{z-index:0;}
 .img_right{float:right;}
 .img_justify{float:justify;}
 
+.list_type_none{list-style-type:none;}
 .list_type_1{list-style-type:decimal;}
 .list_type_disc{list-style-type:disc;}
 .list_type_circle{list-style-type:circle;}
