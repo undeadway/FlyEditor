@@ -7,14 +7,15 @@
 var FlyEditor = (function() {
 
 	var doc = document, // document 本地变量
-	hideElement = Eureka.client.dom.hideElement, // 显示元素
-	showElement = Eureka.client.dom.showElement, // 隐藏元素
-	newXmlWrapper = Eureka.dom.newXmlWrapper, // newXmlWrapper
-	newWindow = Eureka.client.common.newWindow, // 打开新窗口
-	htmlEscape = utils.htmlEscape, // HTML 变换 和 清理 函数（已结合代码高亮器）
-	clear = FlyUbbCode.clear, // UBB 格式清理函数
-	unsupportedOperation = Error.unsupportedOperation, // 不被支持的操作
-	textArea, SUBMENU_NAMES = [];
+		hideElement = Eureka.client.dom.hideElement, // 显示元素
+		showElement = Eureka.client.dom.showElement, // 隐藏元素
+		newXmlWrapper = Eureka.dom.newXmlWrapper, // newXmlWrapper
+		newWindow = Eureka.client.common.newWindow, // 打开新窗口
+		htmlEscape = utils.htmlEscape, // HTML 变换 和 清理 函数（已结合代码高亮器）
+		clear = FlyUbbCode.clear, // UBB 格式清理函数
+		unsupportedOperation = Error.unsupportedOperation, // 不被支持的操作
+		textArea, SUBMENU_NAMES = [],
+		language = "UBB";
 
 	/*
 	 * 因为工具栏的外观都是一致的，不一致的地方仅仅是作用到不同的 DOM 节点中
@@ -26,20 +27,21 @@ var FlyEditor = (function() {
 
 			ul.putAttribute('class', 'color_ul');
 
-			var COLORS = [ 'FF8080', 'FFFF80', '80FF80', '00FF80', '80FFFF', '0080FF', 'FF80C0', 'FF80FF', 'FF0000',
-					'FFFF00', '80FF00', '00FF40', '00FFFF', '0080C0', '8080C0', 'FF00FF', '804040', 'FF8040', '00FF00',
-					'008080', '004080', '8080FF', '800040', 'FF0080', '800000', 'FF8000', '008000', '008040', '0000FF',
-					'0000A0', '800080', '8000FF', '400000', '804000', '004000', '004040', '000080', '000040', '400040',
-					'400080', '000000', '808080', '808040', '808080', '408080', 'C0C0C0', '400040', 'FFFFFF' ];
+			var COLORS = ['FF8080', 'FFFF80', '80FF80', '00FF80', '80FFFF', '0080FF', 'FF80C0', 'FF80FF', 'FF0000',
+				'FFFF00', '80FF00', '00FF40', '00FFFF', '0080C0', '8080C0', 'FF00FF', '804040', 'FF8040', '00FF00',
+				'008080', '004080', '8080FF', '800040', 'FF0080', '800000', 'FF8000', '008000', '008040', '0000FF',
+				'0000A0', '800080', '8000FF', '400000', '804000', '004000', '004040', '000080', '000040', '400040',
+				'400080', '000000', '808080', '808040', '808080', '408080', 'C0C0C0', '400040', 'FFFFFF'
+			];
 
-			for ( var i = 0, len = COLORS.length; i < len; i++) {
+			for(var i = 0, len = COLORS.length; i < len; i++) {
 
 				var color = COLORS[i];
 
 				var li = newXmlWrapper('li', {
-					title : '#' + color,
-					'class' : "bgcolor_" + color,
-					onclick : "FlyEditor.onClick" + "('" + name + "', '" + color + "')"
+					title: '#' + color,
+					'class': "bgcolor_" + color,
+					onclick: "FlyEditor.onClick" + "('" + name + "', '" + color + "')"
 				});
 
 				ul.add(li.add("#" + color));
@@ -48,16 +50,16 @@ var FlyEditor = (function() {
 		}
 
 		function setSubmenu(ul, sublist) {
-			for ( var j = 0, sLen = sublist.length; j < sLen; j++) {
+			for(var j = 0, sLen = sublist.length; j < sLen; j++) {
 
 				var sName = sublist[j];
 				var sObj = TOOL_BOJS[sName];
 				var li = newXmlWrapper('li', {
-					onclick : sObj.onclick
+					onclick: sObj.onclick
 				});
 				var div = newXmlWrapper('span', {
-					id : 'tool_bar_' + sName,
-					'class' : 'tool_bar_bgimg tool_bar_button'
+					id: 'tool_bar_' + sName,
+					'class': 'tool_bar_bgimg tool_bar_button'
 				}).add(sObj.title);
 				li.add(div).add(sObj.title);
 				ul.add(li);
@@ -68,19 +70,19 @@ var FlyEditor = (function() {
 			/*一种格式
 			 * 操作：显示插入
 			 */
-			format : {
-				title : '格式',
-				onclick : "FlyEditor.submenu",
-				submenu : function(ul) {
+			format: {
+				title: '格式',
+				onclick: "FlyEditor.submenu",
+				submenu: function(ul) {
 
-					var SUBLIST = [ 'p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'pre' ];
+					var SUBLIST = ['p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'pre'];
 
-					for ( var j = 0, sLen = SUBLIST.length; j < sLen; j++) {
+					for(var j = 0, sLen = SUBLIST.length; j < sLen; j++) {
 
 						var sName = SUBLIST[j];
 						var sObj = TOOL_BOJS[sName];
 						var li = newXmlWrapper('li', {
-							onclick : "FlyEditor.onClick('" + sName + "')"
+							onclick: "FlyEditor.onClick('" + sName + "')"
 						}).add(sObj.title);
 						ul.add(li);
 					}
@@ -89,153 +91,163 @@ var FlyEditor = (function() {
 			/*
 			 * 没有 CSS 属性表示 工具栏中不显示图片
 			 */
-			p : {
-				title : '段落'
+			p: {
+				title: '段落'
 			},
-			pre : {
-				title : '预定义'
+			pre: {
+				title: '预定义'
 			},
-			code : {
-				title : '代码',
-				onclick : 'FlyEditor.code()'
+			code: {
+				title: '代码',
+				onclick: 'FlyEditor.code()'
 			},
 			// 从 H1-H6 直接解析为 HTML
-			h1 : {
-				title : '标题1'
+			h1: {
+				title: '标题1'
 			},
-			h2 : {
-				title : '标题2'
+			h2: {
+				title: '标题2'
 			},
-			h3 : {
-				title : '标题3'
+			h3: {
+				title: '标题3'
 			},
-			h4 : {
-				title : '标题4'
+			h4: {
+				title: '标题4'
 			},
-			h5 : {
-				title : '标题5'
+			h5: {
+				title: '标题5'
 			},
-			h6 : {
-				title : '标题6'
+			h6: {
+				title: '标题6'
 			},
-			font : {
-				title : '字体',
-				onclick : "FlyEditor.submenu",
-				submenu : function(ul) {
+			font: {
+				title: '字体',
+				onclick: "FlyEditor.submenu",
+				submenu: function(ul) {
 
 					// 从代码到字体设置
-					var ARRAY = [ [ '宋体', 'song' ], [ '仿宋', 'fsong' ], [ '楷体', 'kai' ], [ '魏碑', 'weibei' ],
-							[ '隶书', 'lishu' ], [ '黑体', 'hei' ], [ 'Arial', 'arial' ], [ 'Courier New', 'courier_new' ],
-							[ 'MS PGothic', 'ms_pgothic' ], [ 'MS PMincho', 'ms_pmincho' ], [ 'Tahoma', 'tahoma' ],
-							[ 'Times New Roman', 'times_new_roman' ] ];
+					var ARRAY = [
+						['宋体', 'song'],
+						['仿宋', 'fsong'],
+						['楷体', 'kai'],
+						['魏碑', 'weibei'],
+						['隶书', 'lishu'],
+						['黑体', 'hei'],
+						['Arial', 'arial'],
+						['Courier New', 'courier_new'],
+						['MS PGothic', 'ms_pgothic'],
+						['MS PMincho', 'ms_pmincho'],
+						['Tahoma', 'tahoma'],
+						['Times New Roman', 'times_new_roman']
+					];
 
-					for ( var i = 0, len = ARRAY.length; i < len; i++) {
+					for(var i = 0, len = ARRAY.length; i < len; i++) {
 
 						var font = ARRAY[i];
 						var fontName = font[0];
 						ul.add(newXmlWrapper('li', {
-							'class' : 'font_' + font[1],
-							onclick : "FlyEditor.onClick('font','" + fontName + "')"
+							'class': 'font_' + font[1],
+							onclick: "FlyEditor.onClick('font','" + fontName + "')"
 						}).add(font[0]));
 					}
 				}
 			},
-			size : {
-				title : '字号',
-				onclick : "FlyEditor.submenu",
-				submenu : function(ul) {
+			size: {
+				title: '字号',
+				onclick: "FlyEditor.submenu",
+				submenu: function(ul) {
 
-					for ( var i = 0, size = 12; i < 6; i++) {
+					for(var i = 0, size = 12; i < 6; i++) {
 						ul.add(newXmlWrapper('li', {
-							'class' : 'size_' + size,
-							onclick : "FlyEditor.onClick('size'," + size + ")"
+							'class': 'size_' + size,
+							onclick: "FlyEditor.onClick('size'," + size + ")"
 						}).add(size + 'px'));
 						size += 3;
 					}
 
 				}
 			},
-			bold : {
-				title : '粗体字'
+			bold: {
+				title: '粗体字'
 			},
-			italic : {
-				title : '斜体字'
+			italic: {
+				title: '斜体字'
 			},
-			underline : {
-				title : '下划线'
+			underline: {
+				title: '下划线'
 			},
-			del : {
-				title : '删除线'
+			del: {
+				title: '删除线'
 			},
-			color : {
-				title : '字体颜色',
-				onclick : "FlyEditor.submenu",
-				submenu : setColor
+			color: {
+				title: '字体颜色',
+				onclick: "FlyEditor.submenu",
+				submenu: setColor
 			},
-			bgcolor : {
-				title : '背景色',
-				onclick : "FlyEditor.submenu",
-				submenu : setColor
+			bgcolor: {
+				title: '背景色',
+				onclick: "FlyEditor.submenu",
+				submenu: setColor
 			},
-			url : {
-				title : '链接',
-				onclick : "FlyEditor.inputPrompt('链接网址','url')"
+			url: {
+				title: '链接',
+				onclick: "FlyEditor.inputPrompt('链接网址','url')"
 			},
-			align : {
-				title : '对齐方式',
-				onclick : "FlyEditor.submenu",
-				submenu : function(ul) {
-					setSubmenu(ul, [ 'alignleft', 'aligncenter', 'alignright' ]);
+			align: {
+				title: '对齐方式',
+				onclick: "FlyEditor.submenu",
+				submenu: function(ul) {
+					setSubmenu(ul, ['alignleft', 'aligncenter', 'alignright']);
 				}
 			},
-			alignleft : {
-				title : '左对齐',
-				onclick : "FlyEditor.onClick('align', 'left')"
+			alignleft: {
+				title: '左对齐',
+				onclick: "FlyEditor.onClick('align', 'left')"
 			},
 
-			aligncenter : {
-				title : '居中对齐',
-				onclick : "FlyEditor.onClick('align', 'center')"
+			aligncenter: {
+				title: '居中对齐',
+				onclick: "FlyEditor.onClick('align', 'center')"
 			},
-			alignright : {
-				title : '右对齐',
-				onclick : "FlyEditor.onClick('align', 'right')"
+			alignright: {
+				title: '右对齐',
+				onclick: "FlyEditor.onClick('align', 'right')"
 			},
-			list : {
-				title : '列表',
-				onclick : "FlyEditor.submenu",
-				submenu : function(ul) {
-					setSubmenu(ul, [ 'ol', 'ul' ]);
+			list: {
+				title: '列表',
+				onclick: "FlyEditor.submenu",
+				submenu: function(ul) {
+					setSubmenu(ul, ['ol', 'ul']);
 				}
 			},
-			ol : {
-				title : '有序列表',
-				onclick : "FlyEditor.list('ol')"
+			ol: {
+				title: '有序列表',
+				onclick: "FlyEditor.list('ol')"
 			},
-			ul : {
-				title : '无序列表',
-				onclick : "FlyEditor.list('ul')"
+			ul: {
+				title: '无序列表',
+				onclick: "FlyEditor.list('ul')"
 			},
-			sub : {
-				title : '下标'
+			sub: {
+				title: '下标'
 			},
-			sup : {
-				title : '上标'
+			sup: {
+				title: '上标'
 			},
 			// 缩进（暂时不实现）
 			// indent : {},
 			// 表格
-			table : {
-				title : '表格',
-				onclick : "FlyEditor.table()"
+			table: {
+				title: '表格',
+				onclick: "FlyEditor.table()"
 			},
-			img : {
-				title : '图片',
-				onclick : "FlyEditor.inputPrompt2('图像网址', '图像标题','img')"
+			img: {
+				title: '图片',
+				onclick: "FlyEditor.inputPrompt2('图像网址', '图像标题','img')"
 			},
-			face : {
-				title : '表情',
-				onclick : "FlyEditor.face()"
+			face: {
+				title: '表情',
+				onclick: "FlyEditor.face()"
 			},
 			// video : {
 			// title : '视频'
@@ -243,80 +255,101 @@ var FlyEditor = (function() {
 			// audio : {
 			// title : '音频'
 			// },
-			flash : {
-				title : 'FLASH',
-				onclick : "FlyEditor.inputPrompt('FLASH地址', 'flash')"
+			flash: {
+				title: 'FLASH',
+				onclick: "FlyEditor.inputPrompt('FLASH地址', 'flash')"
 			},
 			// cancel : {
 			// title : '取消操作'},
-			clear : {
-				title : '清除格式',
-				onclick : "FlyEditor.clear(this)"
+			clear: {
+				title: '清除格式',
+				onclick: "FlyEditor.clear(this)"
 			},
-			preview : {
-				title : '预览',
-				onclick : "FlyEditor.preview(this)"
+			preview: {
+				title: '预览',
+				onclick: "FlyEditor.preview()"
 			},
-			help : {
-				title : '帮助',
-				onclick : "FlyEditor.help()"
+			help: {
+				title: '帮助',
+				onclick: "FlyEditor.help()"
 			},
-			block : {
-				title : '引用',
-				onclick : "FlyEditor.block()"
+			block: {
+				title: '引用',
+				onclick: "FlyEditor.block()"
 			},
-			thunder : {
-				title : '迅雷链接',
-				onclick : "FlyEditor.resource('迅雷链接', 'thunder')"
+			thunder: {
+				title: '迅雷链接',
+				onclick: "FlyEditor.resource('迅雷链接', 'thunder')"
 			},
-			magnet : {
-				title : '磁力链接',
-				onclick : "FlyEditor.resource('磁力链接', 'magnet')"
+			magnet: {
+				title: '磁力链接',
+				onclick: "FlyEditor.resource('磁力链接', 'magnet')"
 			},
-			ed2k : {
-				title : 'ED2K',
-				onclick : "FlyEditor.resource('ED2K', 'ed2k')"
+			ed2k: {
+				title: 'ED2K',
+				onclick: "FlyEditor.resource('ED2K', 'ed2k')"
 			},
-			escape : {
-				title : '字符转义',
-				onclick : "FlyEditor.escape()"
+			escape: {
+				title: '字符转义',
+				onclick: "FlyEditor.escape()"
+			},
+			language: {
+				title: '选择编译语言',
+				onclick: "FlyEditor.submenu",
+				submenu: function(ul) {
+
+					ul.add(newXmlWrapper('li', {
+						'id' : 'lang_ubb',
+						onclick: "FlyEditor.setLanguage('UBB')" 
+					}).add('UBB'));
+
+					ul.add(newXmlWrapper('li', {
+						'id' : 'lang_ubb',
+						onclick: "FlyEditor.setLanguage('Markdown')" 
+					}).add('Markdown'));
+				}
+			},
+			mark : {
+				title : '加记号'
 			}
 		};
 
-		var TOOL_BAR_NAMES = [ 'format', 'font', 'size', 'bold', 'italic', 'underline', 'del', '|', 'color',
-				'bgcolor', 'url', 'align', 'list', 'sup', 'sub', /* 'indent', */'block', 'code', 'escape', '|',
-				'table', 'img', 'face', '|', /* 'video', 'audio', */
-				'flash', 'ed2k', 'magnet', 'thunder', '|', /* 'cancel' */
-				'clear', 'preview', 'help' ];
+		var TOOL_BAR_NAMES = ['format', 'font', 'size', 'bold', 'italic', 'underline', 'del', '|', 'color',
+			'bgcolor', 'mark', 'url', 'align', 'list', 'sup', 'sub', /* 'indent', */ 'block', 'code', 'escape', '|',
+			'table', 'img', 'face', '|', /* 'video', 'audio', */
+			'flash', 'ed2k', 'magnet', 'thunder', '|', /* 'cancel' */
+			'clear', /* 'language', */ 'preview', 'help'
+		];
 
 		return function() {
 
 			var bar = newXmlWrapper('div', {
-				id : 'tool_bar_div'
+				id: 'tool_bar_div'
 			});
 
 			// 读取对象
-			for ( var i = 0, len = TOOL_BAR_NAMES.length; i < len; i++) {
+			for(var i = 0, len = TOOL_BAR_NAMES.length; i < len; i++) {
 
 				var name = TOOL_BAR_NAMES[i];
 				var obj = TOOL_BOJS[name];
 
 				var tool = newXmlWrapper('div', {
-					'class' : 'tool_bar_element tool_bar_bgimg'
+					'class': 'tool_bar_element tool_bar_bgimg'
 				});
-				if (name !== '|') {
+				if(name !== '|') {
 
 					tool.putAttribute('id', 'tool_bar_' + name);
 
 					// 显示部分
 					var div = newXmlWrapper('div', {
-						'class' : 'tool_bar_button'
+						'class': 'tool_bar_button',
+						id: 'tool_bar_button_' + name
 					});
 					div.putAttribute('title', obj.title);
 
 					var onclick = obj.onclick;
-					if (onclick) {
-						if (onclick === "FlyEditor.submenu") {
+					if(onclick) {
+						if(onclick === "FlyEditor.submenu") {
 							onclick += "('" + name + "')";
 						}
 					} else {
@@ -327,16 +360,16 @@ var FlyEditor = (function() {
 
 					// 下拉菜单
 					var submenu = obj.submenu;
-					if (submenu) {
+					if(submenu) {
 						var submenuName = 'tool_bar_menu_' + name;
 						SUBMENU_NAMES.push(submenuName);
 
 						var wrap = newXmlWrapper('ul', {
-							id : submenuName,
-							'class' : 'tool_bar_submenu'
+							id: submenuName,
+							'class': 'tool_bar_submenu'
 						});
 						var result = submenu(wrap, name);
-						if (result) {
+						if(result) {
 							wrap = result;
 						}
 
@@ -359,7 +392,7 @@ var FlyEditor = (function() {
 	 */
 	function hideSubMenu() {
 		//		alert(SUBMENU_NAMES);
-		for ( var i = 0, len = SUBMENU_NAMES.length; i < len; i++) {
+		for(var i = 0, len = SUBMENU_NAMES.length; i < len; i++) {
 			hideElement(SUBMENU_NAMES[i]);
 		}
 	}
@@ -374,11 +407,11 @@ var FlyEditor = (function() {
 		hideSubMenu();
 
 		var start = textArea.selectionStart, // 开始位置
-		end = textArea.selectionEnd, // 结束位置
-		value = textArea.value; // 文本内容
+			end = textArea.selectionEnd, // 结束位置
+			value = textArea.value; // 文本内容
 
-		textArea.value = value.slice(0, start)
-				+ (('function' === typeof callback) ? callback(start, end, value) : callback) + value.slice(end);
+		textArea.value = value.slice(0, start) +
+			(('function' === typeof callback) ? callback(start, end, value) : callback) + value.slice(end);
 	}
 
 	function onClick(type, name) {
@@ -386,7 +419,7 @@ var FlyEditor = (function() {
 		onClickInput(function(start, end, value) {
 
 			var replace = String.BLANK;
-			switch (type) {
+			switch(type) {
 				case 'bold':
 					replace = '[b]' + value.slice(start, end) + '[/b]';
 					break;
@@ -415,6 +448,7 @@ var FlyEditor = (function() {
 				case 'del':
 				case 'sup':
 				case 'sub':
+				case 'mark':
 				case 'thunder':
 				case 'magnet':
 					replace = '[' + type + ']' + value.slice(start, end) + '[/' + type + ']';
@@ -462,7 +496,7 @@ var FlyEditor = (function() {
 		close.className = "input_closeimg";
 		submenu.appendChild(close);
 
-		if (callback) {
+		if(callback) {
 			submenu.appendChild(callback());
 		}
 
@@ -482,10 +516,12 @@ var FlyEditor = (function() {
 
 	var insertResource = (function() {
 
-		var areas = {}, submenuNames = {}, nowKey;
+		var areas = {},
+			submenuNames = {},
+			nowKey;
 
 		function closeResource() {
-			for ( var name in submenuNames) {
+			for(var name in submenuNames) {
 				hideElement(submenuNames[name]);
 			}
 		}
@@ -497,16 +533,16 @@ var FlyEditor = (function() {
 		return function(title, name) {
 
 			var submenuName = "tool_bar_menu_" + name;
-			if (!submenuNames[name]) {
+			if(!submenuNames[name]) {
 				submenuNames[name] = submenuName;
 
 				areas[name] = createSubMenuDiv("tool_bar_" + name, submenuName, closeResource, submitResource,
-						function() {
-							var div = doc.createElement("div");
-							div.className = "sb_ta_title";
-							div.innerHTML = "插入" + title + "链接（换行分割）";
-							return div;
-						});
+					function() {
+						var div = doc.createElement("div");
+						div.className = "sb_ta_title";
+						div.innerHTML = "插入" + title + "链接（换行分割）";
+						return div;
+					});
 			}
 			nowKey = name;
 			showSubMenu(submenuName);
@@ -516,7 +552,8 @@ var FlyEditor = (function() {
 
 	var code = (function() {
 
-		var codeArea, select, submenuName = null, langs = FlyHighLighter.getLangs();
+		var codeArea, select, submenuName = null,
+			langs = FlyHighLighter.getLangs();
 
 		function closeCode() {
 			hideElement(submenuName);
@@ -525,13 +562,13 @@ var FlyEditor = (function() {
 		function submitCode() {
 
 			var lang = null;
-			for ( var i = 1, len = select.length; i < len; i++) {
-				if (select[i].selected) {
+			for(var i = 1, len = select.length; i < len; i++) {
+				if(select[i].selected) {
 					lang = select[i].text;
 					break;
 				}
 			}
-			if (lang === null) {
+			if(lang === null) {
 				select.focus();
 				alert('请选择一种语言以便为代码进行语法着色');
 				return;
@@ -543,7 +580,7 @@ var FlyEditor = (function() {
 
 		return function() {
 
-			if (submenuName === null) {
+			if(submenuName === null) {
 
 				submenuName = "tool_bar_menu_code";
 				codeArea = createSubMenuDiv("tool_bar_code", submenuName, closeCode, submitCode, function() {
@@ -554,7 +591,7 @@ var FlyEditor = (function() {
 					first.text = "请选择一种语言";
 					select.appendChild(first);
 
-					for ( var i = 0, len = langs.length; i < len; i++) {
+					for(var i = 0, len = langs.length; i < len; i++) {
 						var option = doc.createElement("option");
 						option.text = langs[i];
 						select.appendChild(option);
@@ -565,7 +602,7 @@ var FlyEditor = (function() {
 			}
 
 			select[0].selected = 'selected';
-			for ( var i = 1, len = select.length; i < len; i++) {
+			for(var i = 1, len = select.length; i < len; i++) {
 				select[i].selected = '';
 			}
 			codeArea.value = String.BLANK;
@@ -577,7 +614,8 @@ var FlyEditor = (function() {
 
 	var block = (function() {
 
-		var blockArea, select, submenuName = null, block = [ '引用', '说明', '吐槽', '模板', '自定义' ];
+		var blockArea, select, submenuName = null,
+			block = ['引用', '说明', '吐槽', '模板', '自定义'];
 
 		function closeBlock() {
 			hideElement(submenuName);
@@ -585,20 +623,20 @@ var FlyEditor = (function() {
 
 		function submitBlock() {
 			var tag = null;
-			for ( var i = 1, len = select.length; i < len; i++) {
-				if (select[i].selected) {
+			for(var i = 1, len = select.length; i < len; i++) {
+				if(select[i].selected) {
 					tag = select[i].value;
 					break;
 				}
 			}
 
-			if (tag === null) {
+			if(tag === null) {
 				select.focus();
 				alert('请选择一种引用类型');
 				return;
 			}
 
-			if (tag === '自定义') {
+			if(tag === '自定义') {
 				tag = prompt("请输入自定义标签");
 			}
 
@@ -607,7 +645,7 @@ var FlyEditor = (function() {
 
 		return function(name) {
 
-			if (submenuName === null) {
+			if(submenuName === null) {
 
 				submenuName = "tool_bar_menu_block";
 
@@ -620,7 +658,7 @@ var FlyEditor = (function() {
 					first.text = "请选择引用类型";
 					select.appendChild(first);
 
-					for ( var i = 0, len = block.length; i < len; i++) {
+					for(var i = 0, len = block.length; i < len; i++) {
 						var option = doc.createElement("option");
 						option.text = block[i];
 						select.appendChild(option);
@@ -632,7 +670,7 @@ var FlyEditor = (function() {
 			}
 
 			select[0].selected = 'selected';
-			for ( var i = 1, len = select.length; i < len; i++) {
+			for(var i = 1, len = select.length; i < len; i++) {
 				select[i].selected = '';
 			}
 
@@ -657,7 +695,7 @@ var FlyEditor = (function() {
 
 		return function() {
 
-			if (submenuName === null) {
+			if(submenuName === null) {
 
 				submenuName = 'tool_bar_menu_face';
 				var div = doc.createElement("div");
@@ -668,11 +706,12 @@ var FlyEditor = (function() {
 				parent.appendChild(div);
 
 				SUBMENU_NAMES.push(submenuName);
-				var FACE_NAME = [ '黑线', '怒', '眼泪', '炸毛', '蛋定', '微笑', '汗', '囧', '卧槽', '坏笑', '鼻血', '大姨妈', '瞪眼', '你说啥',
-						'一脸血', '害羞', '大好', '喝茶看戏', '美～', '笑岔', '中箭', '呕', '撇嘴', '碎掉', '吐舌头', '纳尼', '泪流满面', '升仙', '扭曲',
-						'闪闪亮', '山', '寨', '基', '惊', '头顶青天', '不错', '吃屎', '牛', '严肃', '作死', '帅'/*, '僵尸', '吸血鬼', '喵'*/,
-						'腹黑', '喜闻乐见', '呵呵呵', '！', '？', '吓尿了', '嘁', '闪电', "S1", "战斗力爆表", "贼笑", "嗯...", "喵" ];
-				for ( var i = 0, len = FACE_NAME.length; i < len; i++) {
+				var FACE_NAME = ['黑线', '怒', '眼泪', '炸毛', '蛋定', '微笑', '汗', '囧', '卧槽', '坏笑', '鼻血', '大姨妈', '瞪眼', '你说啥',
+					'一脸血', '害羞', '大好', '喝茶看戏', '美～', '笑岔', '中箭', '呕', '撇嘴', '碎掉', '吐舌头', '纳尼', '泪流满面', '升仙', '扭曲',
+					'闪闪亮', '山', '寨', '基', '惊', '头顶青天', '不错', '吃屎', '牛', '严肃', '作死', '帅' /*, '僵尸', '吸血鬼', '喵'*/ ,
+					'腹黑', '喜闻乐见', '呵呵呵', '！', '？', '吓尿了', '嘁', '闪电', "S1", "战斗力爆表", "贼笑", "嗯...", "喵"
+				];
+				for(var i = 0, len = FACE_NAME.length; i < len; i++) {
 					var name = FACE_NAME[i];
 					var img = doc.createElement('img');
 					img.title = name;
@@ -693,7 +732,7 @@ var FlyEditor = (function() {
 		onClickInput(function(start, end, value) {
 
 			var tag = '[list';
-			if (type === 'ol') {
+			if(type === 'ol') {
 				tag += '=' + prompt('列表形式（大写字母、小写字母、数字）：');
 			}
 			tag += ']';
@@ -701,7 +740,7 @@ var FlyEditor = (function() {
 			var splitVal = value.slice(start, end).split('\n');
 
 			var out = [];
-			for ( var i = 0, len = splitVal.length; i < len; i++) {
+			for(var i = 0, len = splitVal.length; i < len; i++) {
 				out[i] = '[*]' + splitVal[i];
 			}
 
@@ -715,10 +754,10 @@ var FlyEditor = (function() {
 		var row = prompt("要几列？");
 
 		onClickInput(function(start, end, value) {
-			var table = [ "[table]\n" ];
-			for ( var i = 0; i < row; i++) {
+			var table = ["[table]\n"];
+			for(var i = 0; i < row; i++) {
 				table.push("[tr]");
-				for ( var j = 0; j < cow; j++) {
+				for(var j = 0; j < cow; j++) {
 					table.push("[td] [/td]")
 				}
 				table.push("[/tr]\n");
@@ -740,7 +779,7 @@ var FlyEditor = (function() {
 
 		onClickInput(function(start, end, value) {
 
-			if (start !== end) {
+			if(start !== end) {
 
 				return encodeURI(value.slice(start, end));
 			} else {
@@ -751,9 +790,9 @@ var FlyEditor = (function() {
 	}
 
 	return {
-		apply : function(text) {
+		apply: function(text) {
 
-			if (!textArea) {
+			if(!textArea) {
 
 				textArea = doc.createElement('textarea');
 				textArea.id = 'textarea';
@@ -769,45 +808,48 @@ var FlyEditor = (function() {
 			var dom = doc.getElementById("content_div");
 			dom.innerHTML = createToolBar();
 			dom.appendChild(textArea);
-			if (text) {
+			if(text) {
 				textArea.value = text;
 			}
 
 			hideSubMenu();
 		},
-		submenu : function(name) {
+		submenu: function(name) {
 			showSubMenu('tool_bar_menu_' + name);
 		},
-		help : function() {
+		help: function() {
 			hideSubMenu();
 			newWindow("/res/flies/FlyEditorHelper.html");
 		},
-		preview : function() {
+		preview: function() {
 			hideSubMenu();
 			try {
-				var title = htmlEscape(doc.forms[0].title.value || '');
-				var html = '<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8" /><link rel="stylesheet" type="text/css" href="/res/flies/FlyShow.css" />'
-						+ '<link rel="stylesheet" type="text/css" href="/res/flies/FlyHighLighter.css" /><title>'
-						+ title + ' 预览</title></head><body>' + htmlEscape(textArea.value || '') + '</body></html>';
+				var html = '<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8" /><link rel="stylesheet" type="text/css" href="/res/flies/FlyShow.css" />' +
+					'<link rel="stylesheet" type="text/css" href="/res/flies/FlyHighLighter.css" /><title>' +
+					doc.forms[0].title.value + ' 预览</title></head><body>' + htmlEscape(textArea.value, language) + '</body></html>';
 				var pvWindow = newWindow('FlyEditor Preview', Date.now(),
-						'width=800,height=600,resizable=no,scrollbars=yes');
+					'width=800,height=600,resizable=no,scrollbars=yes');
 				pvWindow.document.write(html);
 				pvWindow.focus();
-			} catch (e) {
+			} catch(e) {
 				alert('e:' + e.message);
 				alert(e.stack);
 			}
 		},
-		onClick : onClick,
-		inputPrompt : inputPrompt,
-		table : onclickTable,
-		inputPrompt2 : inputPrompt2,
-		list : onClickList,
-		clear : onClickClear,
-		escape : onClickEscape,
-		face : onClickFace,
-		code : code,
-		block : block,
-		resource : insertResource
+		onClick: onClick,
+		inputPrompt: inputPrompt,
+		table: onclickTable,
+		inputPrompt2: inputPrompt2,
+		list: onClickList,
+		clear: onClickClear,
+		escape: onClickEscape,
+		face: onClickFace,
+		code: code,
+		block: block,
+		resource: insertResource,
+		setLanguage: function(lang) {
+			hideSubMenu();
+			language = lang;
+		}
 	};
 })();

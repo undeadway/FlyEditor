@@ -379,12 +379,19 @@
 	}
 
 	var that = {
-		toHTML: function(str, flg) {
+		toHTML: function(str, plugIns) {
 
 			try {
 				str = decodeURIComponent(str);
 			} catch(e) {
 				// 如果出错，就当不存在
+			}
+
+			// 插件的前处理
+			if(plugIns) {
+				for(var i = 0, len = plugIns.length; i < len; i++) {
+					str = plugIns[i].before(str);
+				}
 			}
 
 			// 在把 \n 替换为 <br /> 之前把包括 quote pre 等在内的块层级之间的换行符给去掉
@@ -397,7 +404,7 @@
 			str = replaceFlash(str);
 
 			str = str.replace(/\[\/(size|color|font|bgcolor)\]/g, '</span>');
-			str = str.replace(/\[(\/)?(sub|sup|del|p|pre|i|b|tr|td|code|mark)]/g, '<$1$2>');
+			str = str.replace(/\[(\/)?(sub|sup|del|p|pre|i|b|tr|td|mark)]/g, '<$1$2>');
 			str = str.replace(/\[(\/)?h([1-6])]/g, '<$1h$2>');
 			str = str.replace(/\[size=(\d+?)]/g, '<span class="size_$1">');
 			str = str.replace(/\[color=\#([^\[\<]+?)]/g, '<span class="color_$1">');
@@ -445,6 +452,13 @@
 			// 系统先保留这种写法
 			str = str.replace(/\[bold\](.+?)\[\/bold]/g, '<b>$1</b>');
 			str = str.replace(/\[italic\](.+?)\[\/italic]/g, '<i>$1</i>');
+
+			// 插件的后处理
+			if(plugIns) {
+				for(var i = 0, len = plugIns.length; i < len; i++) {
+					str = plugIns[i].after(str);
+				}
+			}
 
 			// 这些处理是为了防止清理的不干净做的尾处理
 			str = str.replace(/\<(\/)?(div|fieldset|tr|table|p|h[1-6]|pre|li|ul|ol)\>\<br( \/)?\>/g, "<$1$2>"); // 去掉标签后的多余换行比如<table><br />
