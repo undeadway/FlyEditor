@@ -43,8 +43,9 @@
 #tool_bar_thunder{background-position:-40px -40px;}
 #tool_bar_escape{background-position:-100px -40px;}
 #tool_bar_mark{background-position:-120px -40px;}
+#tool_bar_language{background-position:-140px -40px;}
+#tool_bar_phonics{background-position:-160px -40px;}
 .tool_bar_line{width:5px; background-position:-280px 0px;}
-
 #tool_bar_menu_face{width:266px; padding:3px;}
 #tool_bar_menu_face img{margin:1px; border:1px solid #F3F3F3; padding:2px; width:30px; height:30px;}
 #tool_bar_menu_face img:hover{border:1px solid #FFFFFF; background:#FFFFFF;}

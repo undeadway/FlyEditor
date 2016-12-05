@@ -14,8 +14,8 @@ var FlyEditor = (function() {
 		htmlEscape = utils.htmlEscape, // HTML 变换 和 清理 函数（已结合代码高亮器）
 		clear = FlyUbbCode.clear, // UBB 格式清理函数
 		unsupportedOperation = Error.unsupportedOperation, // 不被支持的操作
-		textArea, SUBMENU_NAMES = [],
-		language = "UBB";
+		textArea, langArea, SUBMENU_NAMES = [],
+		language = 'UBB';
 
 	/*
 	 * 因为工具栏的外观都是一致的，不一致的地方仅仅是作用到不同的 DOM 节点中
@@ -299,26 +299,29 @@ var FlyEditor = (function() {
 				submenu: function(ul) {
 
 					ul.add(newXmlWrapper('li', {
-						'id' : 'lang_ubb',
-						onclick: "FlyEditor.setLanguage('UBB')" 
+						'id': 'lang_ubb',
+						onclick: "FlyEditor.setLanguage('UBB')"
 					}).add('UBB'));
 
 					ul.add(newXmlWrapper('li', {
-						'id' : 'lang_ubb',
-						onclick: "FlyEditor.setLanguage('Markdown')" 
+						'id': 'lang_ubb',
+						onclick: "FlyEditor.setLanguage('Markdown')"
 					}).add('Markdown'));
 				}
 			},
-			mark : {
-				title : '加记号'
+			mark: {
+				title: '记号'
+			},
+			phonics: {
+				title: '注音'
 			}
 		};
 
-		var TOOL_BAR_NAMES = ['format', 'font', 'size', 'bold', 'italic', 'underline', 'del', '|', 'color',
+		var TOOL_BAR_NAMES = ['format', 'font', 'size', 'bold', 'italic', 'underline', 'del', 'phonics', '|', 'color',
 			'bgcolor', 'mark', 'url', 'align', 'list', 'sup', 'sub', /* 'indent', */ 'block', 'code', 'escape', '|',
 			'table', 'img', 'face', '|', /* 'video', 'audio', */
 			'flash', 'ed2k', 'magnet', 'thunder', '|', /* 'cancel' */
-			'clear', /* 'language', */ 'preview', 'help'
+			'clear', 'preview', 'language', 'help'
 		];
 
 		return function() {
@@ -449,6 +452,7 @@ var FlyEditor = (function() {
 				case 'sup':
 				case 'sub':
 				case 'mark':
+				case 'phonics':
 				case 'thunder':
 				case 'magnet':
 					replace = '[' + type + ']' + value.slice(start, end) + '[/' + type + ']';
@@ -790,7 +794,7 @@ var FlyEditor = (function() {
 	}
 
 	return {
-		apply: function(text) {
+		apply: function(text, lang) {
 
 			if(!textArea) {
 
@@ -798,9 +802,15 @@ var FlyEditor = (function() {
 				textArea.id = 'textarea';
 				textArea.name = 'textarea';
 				textArea.className = 'textarea';
+				textArea.value = text || '';
 
 				textArea.onfocus = hideSubMenu;
 				textArea.onblur = hideSubMenu;
+
+				langArea = doc.createElement("input");
+				langArea.name = "lang";
+				langArea.type = "hidden";
+				langArea.value = lang || 'UBB';
 
 			}
 
@@ -808,9 +818,7 @@ var FlyEditor = (function() {
 			var dom = doc.getElementById("content_div");
 			dom.innerHTML = createToolBar();
 			dom.appendChild(textArea);
-			if(text) {
-				textArea.value = text;
-			}
+			dom.appendChild(langArea);
 
 			hideSubMenu();
 		},
@@ -849,7 +857,7 @@ var FlyEditor = (function() {
 		resource: insertResource,
 		setLanguage: function(lang) {
 			hideSubMenu();
-			language = lang;
+			langArea.value = language = lang;
 		}
 	};
 })();

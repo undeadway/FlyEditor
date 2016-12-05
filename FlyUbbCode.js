@@ -148,6 +148,24 @@
 		};
 	})();
 
+	function replaceRuby(str) {
+
+		while(/\[phonics\]((.|\s)*?)\[\/phonics\]/.test(str)) {
+
+			var inner = RegExp.$1;
+			var input = '[phonics]' + inner + '[/phonics]';
+
+			inner = inner.replace(/[\(|（]/g, "<rp>(</rp><rt>");
+			inner = inner.replace(/[\)|）]/g, "</tr><rp>)</rp>");
+
+			var output = '<ruby>' + inner + '</ruby>';
+
+			str = str.replace(input, output);
+		}
+
+		return str;
+	}
+
 	var replaceImg = (function() {
 
 		/*
@@ -381,12 +399,6 @@
 	var that = {
 		toHTML: function(str, plugIns) {
 
-			try {
-				str = decodeURIComponent(str);
-			} catch(e) {
-				// 如果出错，就当不存在
-			}
-
 			// 插件的前处理
 			if(plugIns) {
 				for(var i = 0, len = plugIns.length; i < len; i++) {
@@ -425,6 +437,7 @@
 			str = replaceList(str);
 			str = replaceImg(str);
 			str = replaceUrl(str);
+			str = replaceRuby(str);
 
 			str = str.replace(/\[quote\]/g, '<fieldset class="fieldset"><legend class="legend">引用</legend><div>');
 			str = str.replace(/\[quote=([^\]]+)\]/g,
@@ -463,6 +476,13 @@
 			// 这些处理是为了防止清理的不干净做的尾处理
 			str = str.replace(/\<(\/)?(div|fieldset|tr|table|p|h[1-6]|pre|li|ul|ol)\>\<br( \/)?\>/g, "<$1$2>"); // 去掉标签后的多余换行比如<table><br />
 			str = str.replace(/\<br( \/)?\>\<(\/)?(div|fieldset|tr|table|p|h[1-6]|pre|li|ul|ol)\>/g, "<$2$3>"); // 去掉标签后的多余换行比如<br /><table>;
+
+			// 最后的转义出处理
+			try {
+				str = decodeURIComponent(str);
+			} catch(e) {
+				// 如果出错，就当不存在
+			}
 
 			return str;
 		},
