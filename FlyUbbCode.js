@@ -3,7 +3,7 @@
  * 对已经编码完成的输入进行解析最终输出可供显示的 HTML 。
  */
 ;
-(function() {
+this.FlyUbbCode = (function() {
 
 	var newXmlWrapper = Eureka.dom.newXmlWrapper;
 	var htmlEscape = Eureka.util.ReplaceHolder.htmlEscape,
@@ -403,10 +403,9 @@
 
 		return {
 			before: function(str) {
-				var index = 0;
 				while(regexp.test(str)) {
 					var inner = RegExp.$1;
-					str = str.replace("[pre]" + inner + "[/pre]", "[pre-" + (index++) + "]");
+					str = str.replace("[pre]" + inner + "[/pre]", "[pre-" + source.length + "]");
 					source.push("<pre>" + inner + "</pre>");
 				}
 
@@ -414,10 +413,9 @@
 			},
 			after: function(str) {
 
-				for(var i = 0, len = source.length; i < len; i++) {
-					var src = source[i];
+				Object.forEach(source, function(i, src) {
 					str = str.replace("[pre-" + i + "]", src);
-				}
+				});
 
 				return str;
 			}
@@ -429,9 +427,9 @@
 
 			// 插件的前处理
 			if(plugIns) {
-				for(var i = 0, len = plugIns.length; i < len; i++) {
-					str = plugIns[i].before(str);
-				}
+				Object.forEach(plugIns, function(i, obj) {
+					str = obj.before(str);
+				});
 			}
 
 			var pre = replacePre();
@@ -501,9 +499,9 @@
 
 			// 插件的后处理
 			if(plugIns) {
-				for(var i = 0, len = plugIns.length; i < len; i++) {
-					str = plugIns[i].after(str);
-				}
+				Object.forEach(plugIns, function(i, obj) {
+					str = obj.after(str);
+				});
 			}
 
 			// 这些处理是为了防止清理的不干净做的尾处理
@@ -548,10 +546,6 @@
 		}
 	};
 
-	if(Eureka.side()) {
-		window.FlyUbbCode = that;
-	} else {
-		module.exports = that;
-	}
+	return that;
 
 })();
