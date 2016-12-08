@@ -123,12 +123,13 @@
 .bgcolor_FFFFFF{background:#FFFFFF}
 
 rt{font-size:12px;}
-.fieldset{border:1px solid #5eacd1; padding:10px; margin:5px 15px 10px 15px; position:relative; background:#faf9ef;}
+.fieldset{border:1px solid #5eacd1; padding:10px;; margin:5px 15px 10px 15px; position:relative; background:#faf9ef;}
 .legend{font-weight:bold; color:#014387;}
-.fieldset div{overflow:auto; padding-bottom:5px;}
+.fieldset div{overflow:auto; padding-bottom:5px; max-width:720px}
 /*.code div{width:97%;}*/
 .flyimg{cursor:pointer;}
 embed{z-index:0;}
+pre{background:#f9fefc; padding:10px;}
 
 .table{border-collapse: collapse; padding:5px; background:#FFFFFF; margin:10px;}
 .table td{padding:5px;border:1px solid #000000; vertical-align:top;}
@@ -159,6 +160,6 @@ embed{z-index:0;}
 .list_type_i{list-style-type:lower-roman;}
 .list_type_I{list-style-type:upper-roman;}
 .list_type_greek{list-style-type:lower-greek;}
-.list_type_shu{list-style-type:cjk-ideographic;}
+.list_type_shuzi{list-style-type:cjk-ideographic;}
 .list_type_hira{list-style-type:hiragana;}
 .list_type_kata{list-style-type:katakana;}

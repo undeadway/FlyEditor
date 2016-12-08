@@ -334,7 +334,7 @@
 						tag = "ol";
 						break;
 					case '一':
-						className += "shu";
+						className += "shuzi";
 						tag = "ol";
 						break;
 					case 'あ':
@@ -396,6 +396,34 @@
 		return str;
 	}
 
+	function replacePre() {
+
+		var regexp = /\[pre\]((.|\s)*?)\[\/pre\]/;
+		var source = [];
+
+		return {
+			before: function(str) {
+				var index = 0;
+				while(regexp.test(str)) {
+					var inner = RegExp.$1;
+					str = str.replace("[pre]" + inner + "[/pre]", "[pre-" + (index++) + "]");
+					source.push("<pre>" + inner + "</pre>");
+				}
+
+				return str;
+			},
+			after: function(str) {
+
+				for(var i = 0, len = source.length; i < len; i++) {
+					var src = source[i];
+					str = str.replace("[pre-" + i + "]", src);
+				}
+
+				return str;
+			}
+		};
+	}
+
 	var that = {
 		toHTML: function(str, plugIns) {
 
@@ -405,6 +433,9 @@
 					str = plugIns[i].before(str);
 				}
 			}
+
+			var pre = replacePre();
+			str = pre.before(str);
 
 			// 在把 \n 替换为 <br /> 之前把包括 quote pre 等在内的块层级之间的换行符给去掉
 			str = str.replace(
@@ -416,7 +447,7 @@
 			str = replaceFlash(str);
 
 			str = str.replace(/\[\/(size|color|font|bgcolor)\]/g, '</span>');
-			str = str.replace(/\[(\/)?(sub|sup|del|p|pre|i|b|tr|td|mark)]/g, '<$1$2>');
+			str = str.replace(/\[(\/)?(sub|sup|del|p|tr|td|mark)]/g, '<$1$2>');
 			str = str.replace(/\[(\/)?h([1-6])]/g, '<$1h$2>');
 			str = str.replace(/\[size=(\d+?)]/g, '<span class="size_$1">');
 			str = str.replace(/\[color=\#([^\[\<]+?)]/g, '<span class="color_$1">');
@@ -463,8 +494,10 @@
 			}
 
 			// 系统先保留这种写法
-			str = str.replace(/\[bold\](.+?)\[\/bold]/g, '<b>$1</b>');
-			str = str.replace(/\[italic\](.+?)\[\/italic]/g, '<i>$1</i>');
+			str = str.replace(/\[b(old)?\](.+?)\[\/b(old)?]/g, '<strong>$2</strong>');
+			str = str.replace(/\[i(talic)?\](.+?)\[\/i(talic)?]/g, '<em>$2</em>');
+
+			str = pre.after(str);
 
 			// 插件的后处理
 			if(plugIns) {
