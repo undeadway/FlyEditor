@@ -406,7 +406,7 @@ this.FlyUbbCode = (function() {
 				while(regexp.test(str)) {
 					var inner = RegExp.$1;
 					str = str.replace("[pre]" + inner + "[/pre]", "[pre-" + source.length + "]");
-					source.push("<pre>" + inner + "</pre>");
+					source.push('<pre class="pre">' + inner + '</pre>');
 				}
 
 				return str;
