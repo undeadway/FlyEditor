@@ -21,6 +21,11 @@
 .size_21{font-size:21px;}
 .size_24{font-size:24px;}
 .size_27{font-size:27px;}
+.size_30{font-size:30px;}
+.size_36{font-size:36px;}
+.size_48{font-size:48px;}
+.size_64{font-size:64px;}
+.size_72{font-size:72px;}
 
 /* 前景色 */
 .color_FF8080{color:#FF8080}
@@ -123,22 +128,24 @@
 .bgcolor_FFFFFF{background:#FFFFFF}
 
 rt{font-size:12px;}
-.fieldset{border:1px solid #5eacd1; padding:10px;; margin:5px 15px 10px 15px; position:relative; background:#faf9ef;
-	-moz-border-radius:7px; -webkit-border-radius:7px; border-radius:7px;
+.fieldset{border:1px solid #5eacd1; padding:10px; margin:5px 15px 10px 15px; position:relative; background:#faf9ef;
+	-moz-border-radius:5px; -webkit-border-radius:5px; border-radius:5px;
 }
-.legend{font-weight:bold; color:#014387; border:1px solid #c4c4c4; background: #f9fefc; padding:2px 7px;
-	-moz-border-radius:3px; -webkit-border-radius:3px; border-radius:3px;
+legend{font-weight:bold; color:#014387; border:1px solid #c4c4c4; background: #f9fefc; padding:2px 7px;
+	-moz-border-radius:3px; -webkit-border-radius:3px; border-radius:3px; text-shadow:1px 1px 1px #f4ffa8;
 }
 .fieldset div{overflow:auto; padding-bottom:5px; max-width:720px;}
 /*.code div{width:97%;}*/
 .flyimg{cursor:pointer;}
 embed{z-index:0;}
-.pre{background:#f9fefc; padding:10px; border:2px solid #eaeaea;
-	-moz-border-radius:7px; -webkit-border-radius:7px; border-radius:7px;
+.pre{background:#f9fefc; padding:10px; border:2px solid #eaeaea; width:750px; overflow: auto;
+	-moz-border-radius:5px; -webkit-border-radius:5px; border-radius:5px;
 }
 
 .table{border-collapse: collapse; padding:5px; background:#FFFFFF; margin:10px;}
-.table td{padding:5px;border:1px solid #000000; vertical-align:top;}
+.table td{padding:5px; border:1px solid #450745; vertical-align:top;}
+.table tr:nth-child(1){background: #7aa4de; color: #ffffff; text-shadow:1px 1px 1px #333333; font-weight: bold; text-align: center;}
+.table tr:nth-child(2n+3){background: #f7ffff;}
 
 /* 标准 ED2K 连接 */
 .ed2k_box li{display:inline-table;}
@@ -169,3 +176,8 @@ embed{z-index:0;}
 .list_type_shuzi{list-style-type:cjk-ideographic;}
 .list_type_hira{list-style-type:hiragana;}
 .list_type_kata{list-style-type:katakana;}
+
+.align_center{text-align:center;}
+.align_left{text-align:left;}
+.align_right{text-align:right;}
+.align_justify{text-align:justify;}

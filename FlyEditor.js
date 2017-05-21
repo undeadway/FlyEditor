@@ -1,6 +1,7 @@
 /**
  * 富文本编辑器的界面和现实功能用
- * 在 textarea 中输入 ubb 代码，要显示的时候，通过 FlyUbbCode 编译为 HTML
+ * 在 textarea 中输入代码，要显示的时候，通过 FlyCodes 编译为 HTML
+ * 或者只要符合输入语言语法的解析器都能解析，而不固定具体的解析器
  * 
  * 现在尚未实现所见即所得的效果
  */
@@ -12,11 +13,10 @@ var FlyEditor = (function() {
 		newXmlWrapper = Eureka.dom.newXmlWrapper, // newXmlWrapper
 		newWindow = Eureka.client.common.newWindow, // 打开新窗口
 		htmlEscape = utils.htmlEscape, // HTML 变换 和 清理 函数（已结合代码高亮器）
-		clear = FlyUbbCode.clear, // UBB 格式清理函数
+//		codes = NameBridge.codes, // UBB 格式清理函数
 		unsupportedOperation = Error.unsupportedOperation, // 不被支持的操作
-		textArea, langArea, SUBMENU_NAMES = [],
+		textArea, SUBMENU_NAMES = [],
 		language = 'UBB';
-
 	/*
 	 * 因为工具栏的外观都是一致的，不一致的地方仅仅是作用到不同的 DOM 节点中
 	 * 所以直接初始化工具栏，然后赋值给相关变量
@@ -303,10 +303,17 @@ var FlyEditor = (function() {
 						onclick: "FlyEditor.setLanguage('UBB')"
 					}).add('UBB'));
 
+					/*
 					ul.add(newXmlWrapper('li', {
 						'id': 'lang_ubb',
 						onclick: "FlyEditor.setLanguage('Markdown')"
 					}).add('Markdown'));
+					*/
+
+					ul.add(newXmlWrapper('li', {
+						'id': 'lang_ubb',
+						onclick: "FlyEditor.setLanguage('HitOn')"
+					}).add('HitOn'));
 				}
 			},
 			mark: {
@@ -713,7 +720,7 @@ var FlyEditor = (function() {
 				var FACE_NAME = ['黑线', '怒', '眼泪', '炸毛', '蛋定', '微笑', '汗', '囧', '卧槽', '坏笑', '鼻血', '大姨妈', '瞪眼', '你说啥',
 					'一脸血', '害羞', '大好', '喝茶看戏', '美～', '笑岔', '中箭', '呕', '撇嘴', '碎掉', '吐舌头', '纳尼', '泪流满面', '升仙', '扭曲',
 					'闪闪亮', '山', '寨', '基', '惊', '头顶青天', '不错', '吃屎', '牛', '严肃', '作死', '帅' /*, '僵尸', '吸血鬼', '喵'*/ ,
-					'腹黑', '喜闻乐见', '呵呵呵', '！', '？', '吓尿了', '嘁', '闪电', "S1", "战斗力爆表", "贼笑", "嗯...", "喵"
+					'腹黑', '喜闻乐见', '呵呵呵', '！', '？', '吓尿了', '嘁', '闪电', "S1", "战斗力爆表", "贼笑", "嗯...", "喵", "奸笑"
 				];
 				for(var i = 0, len = FACE_NAME.length; i < len; i++) {
 					var name = FACE_NAME[i];
@@ -775,7 +782,7 @@ var FlyEditor = (function() {
 	function onClickClear() {
 
 		onClickInput(function(start, end, value) {
-			return clear(value.slice(start, end));
+			return codes[language].clear(value.slice(start, end));
 		});
 	}
 
@@ -806,19 +813,12 @@ var FlyEditor = (function() {
 
 				textArea.onfocus = hideSubMenu;
 				textArea.onblur = hideSubMenu;
-
-				langArea = doc.createElement("input");
-				langArea.name = "lang";
-				langArea.type = "hidden";
-				langArea.value = lang || 'UBB';
-
 			}
 
 			SUBMENU_NAMES = [];
 			var dom = doc.getElementById("content_div");
 			dom.innerHTML = createToolBar();
 			dom.appendChild(textArea);
-			dom.appendChild(langArea);
 
 			hideSubMenu();
 		},
@@ -840,7 +840,7 @@ var FlyEditor = (function() {
 				pvWindow.document.write(html);
 				pvWindow.focus();
 			} catch(e) {
-				alert('e:' + e.message);
+				alert('e:' + e.stack);
 				alert(e.stack);
 			}
 		},
@@ -857,7 +857,10 @@ var FlyEditor = (function() {
 		resource: insertResource,
 		setLanguage: function(lang) {
 			hideSubMenu();
-			langArea.value = language = lang;
+			language = lang;
+		},
+		getLanguage : function() {
+			return language;
 		}
 	};
 })();
