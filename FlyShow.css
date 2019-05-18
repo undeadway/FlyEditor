@@ -1,4 +1,35 @@
 @CHARSET "UTF-8";
+
+embed{z-index:0;}
+.pre{background:#f9fefc; padding:10px; border:2px solid #eaeaea; width:750px; overflow: auto;
+	-moz-border-radius:5px; -webkit-border-radius:5px; border-radius:5px;
+}
+
+rt{font-size:12px;}
+fieldset{border:1px solid #5eacd1; margin: 10px 5px;  padding: 7px; -moz-border-radius:5px; -webkit-border-radius:5px; border-radius:5px;}
+fieldset legend{font-weight:bold; color:#014387; border:1px solid #c4c4c4; background: #f9fefc; padding:2px 7px;
+	-moz-border-radius:3px; -webkit-border-radius:3px; border-radius:3px; text-shadow:1px 1px 1px #f4ffa8;
+}
+
+.fieldset{background:rgba(250, 249, 239, 0.4);/*#faf9ef;*/
+}
+.fieldset div{max-width:780px; overflow:auto;}
+
+/* 这里的 code 是用 code 标签围起来的内容用，和通过 fileset 围起来的代码是两样东西 */
+code{background:#f6feff; font-family:Courier New; padding:2px 4px; margin:0px 4px 2px 4px; border:1px solid #eaeaea;
+	-moz-border-radius:3px; -webkit-border-radius:3px; border-radius:3px;
+}
+
+.h1{font-size:22pt; border-left: 6px solid #60B7DE; margin:20px 0px; padding-left: 10px; padding-bottom: 5px; text-shadow:3px 3px 3px #999999;}
+.h2{font-size:20pt; border-left: 5px solid #60B7DE; margin:18px 0px; padding-left: 8px; padding-bottom: 4px; text-shadow:3px 3px 3px #aaaaaa;}
+.h3{font-size:18pt; border-left: 4px solid #60B7DE; margin:16px 0px; padding-left: 6px; padding-bottom: 3px; text-shadow:2px 2px 2px #bbbbbb;}
+.h4{font-size:16pt; border-left: 3px solid #60B7DE; margin:14px 0px; padding-left: 4px; padding-bottom: 2px; text-shadow:2px 2px 2px #cccccc;}
+.h5{font-size:14pt; border-left: 2px solid #60B7DE; margin:12px 0px; padding-left: 4px; padding-bottom: 1px; text-shadow:1px 1px 1px #dddddd;}
+.h6{font-size:12pt; border-left: 1px solid #60B7DE; margin:10px 0px; padding-left: 2px; text-shadow:1px 1px 1px #eeeeee;}
+
+.h1, .h2, .h3, .h4, .h5, .h6{border-bottom: 1px #0080FF dashed; }
+
+
 /* 字体 */
 .font_song{font-family:宋体;}
 .font_kai{font-family:华文楷体;}
@@ -127,25 +158,12 @@
 .bgcolor_400040{background:#400040}
 .bgcolor_FFFFFF{background:#FFFFFF}
 
-rt{font-size:12px;}
-.fieldset{border:1px solid #5eacd1; padding:10px; margin:5px 15px 10px 15px; position:relative; background:#faf9ef;
-	-moz-border-radius:5px; -webkit-border-radius:5px; border-radius:5px;
-}
-legend{font-weight:bold; color:#014387; border:1px solid #c4c4c4; background: #f9fefc; padding:2px 7px;
-	-moz-border-radius:3px; -webkit-border-radius:3px; border-radius:3px; text-shadow:1px 1px 1px #f4ffa8;
-}
-.fieldset div{overflow:auto; padding-bottom:5px; max-width:720px;}
-/*.code div{width:97%;}*/
 .flyimg{cursor:pointer;}
-embed{z-index:0;}
-.pre{background:#f9fefc; padding:10px; border:2px solid #eaeaea; width:750px; overflow: auto;
-	-moz-border-radius:5px; -webkit-border-radius:5px; border-radius:5px;
-}
 
 .table{border-collapse: collapse; padding:5px; background:#FFFFFF; margin:10px;}
 .table td{padding:5px; border:1px solid #450745; vertical-align:top;}
-.table tr:nth-child(1){background: #7aa4de; color: #ffffff; text-shadow:1px 1px 1px #333333; font-weight: bold; text-align: center;}
-.table tr:nth-child(2n+3){background: #f7ffff;}
+.table tr:first-child{background: #7aa4de; color: #ffffff; text-shadow:1px 1px 1px #333333; font-weight: bold; text-align: center; vertical-align: middle;}
+.table tr:nth-child(2n+3){background: rgba(247, 255, 255, 0.65);}
 
 /* 标准 ED2K 连接 */
 .ed2k_box li{display:inline-table;}
@@ -179,5 +197,6 @@ embed{z-index:0;}
 
 .align_center{text-align:center;}
 .align_left{text-align:left;}
-.align_right{text-align:right;}
-.align_justify{text-align:justify;}
+.align_right{text-align: right;}
+
+.h5video, .h5audio{text-align:center;}

@@ -1,0 +1,32 @@
+@CHARSET "UTF-8";
+.code{background:rgba(246, 254, 255, 0.3);/*#f6feff*/}
+.code pre{font-family:Consolas; font-size:11pt; padding:5px 5px 5px 25px; margin: 0px; max-height:500px; max-width:750px; overflow: auto;}
+.code ol{display:block; margin:0px; list-style:decimal; margin: 0px;}
+.code li{vertical-align:middle; border-left:3px solid #146b00; padding-left:5px; height: 20px; line-height: 20px;}
+.code li:nth-child(2n-1){background: rgba(204,204,204, 0.2);}
+
+.code .comment{color:#739589; font-style:oblique;}
+.code .doc, .code .xml_cdata{color:#309999;}
+.code .keyword, .code .xmltag{color:#4b3bff;}
+
+.code .keyword{margin-right:3px;}
+.code .css_name, .code .keyword{font-style:italic;}
+.code .css_id{color:#f89225;}
+.code .css_class{color:#086f95;}
+.code .css_at{color:#6c5f14;}
+.code .css_pseudo_class{color:#8557d9;}
+.code .character{color:#f82583;}
+.code .string, .code .data_val{color:#ec773a;}
+.code .todo{color:#FF0000;}
+.code .number{color:#FF3300;}
+.code .annotation{color:#6a1c9c;}
+.code .regexp, .code .macrodefine, .code .data_key{color:#178b0e;}
+.code .bracket{color:#ce25d1; margin:0px 2px;}
+.code .builtin_func, .code .xml_doctype{color:#fe4688;}
+.code .builtin_var, .code .filetype{color:#4928c5;}
+
+.code .css_id, .code .css_class, 
+.code .bracket, .code .todo, .code .xml_doctype, .code .filetype{font-weight:bold;}
+
+.code_list{list-style-type:decimal;}
+

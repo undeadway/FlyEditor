@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<title>FlyEtitor 使用说明</title>
+<script type="text/javascript" src="../js/coralian.js"></script>
+<script type="text/javascript" src="../js/coralian.client.js"></script>
+<script type="text/javascript" src="./FlyHighLighter.js"></script>
+<script type="text/javascript" src="./FlyCodes.js"></script>
+<script type="text/javascript">
+/*
+ * 这个 NameBridge 的主要作用就是一个桥接器
+ * 这样只要调用这个中间桥接器就可以利用到接口定义好的方法
+ * 而不用去管对方是那种实现了
+ */
+var NameBridge = {
+	/*
+	 * 接口定义方法：
+	 * 
+	 * String toHTML(String input, String language);
+	 * String clear(String input);
+	 */
+	codes : window.FlyCodes,
+	/*
+	 * 接口定义方法：
+	 * 
+	 * String execute(String input, String language);
+	 */
+	HighLighter : window.FlyHighLighter
+}
+</script>
+<script type="text/javascript" src="/res/js/utils.js"></script>
+<script type="text/javascript" src="/res/flies/FlyEditor.js"></script>
+<link rel="stylesheet" type="text/css" href="/res/flies/FlyEditor.css" />
+</head>
+<body>
+<ul>
+	<li><a href="#flyeditor">前台编辑器</a></li>
+	<li><a href="./FlyEditor.UBB.helper.html" target="_blank">UBB</a></li>
+	<li><a href="./HitOn.helper.html" target="_blank">HitOn</a></li>
+</ul>
+<style type="text/css">
+	#test{width:500px; height: 100px;}
+</style>
+<div id="content_div"></div>
+<script type="text/javascript">
+FlyEditor.apply();
+</script>
+</body>
+</html>

@@ -8,12 +8,11 @@
 var FlyEditor = (function() {
 
 	var doc = document, // document 本地变量
-		hideElement = Eureka.client.dom.hideElement, // 显示元素
-		showElement = Eureka.client.dom.showElement, // 隐藏元素
-		newXmlWrapper = Eureka.dom.newXmlWrapper, // newXmlWrapper
-		newWindow = Eureka.client.common.newWindow, // 打开新窗口
-		htmlEscape = utils.htmlEscape, // HTML 变换 和 清理 函数（已结合代码高亮器）
-//		codes = NameBridge.codes, // UBB 格式清理函数
+		hideElement = Coralian.client.dom.hideElement, // 显示元素
+		showElement = Coralian.client.dom.showElement, // 隐藏元素
+		newXmlWrapper = Coralian.dom.newXmlWrapper, // newXmlWrapper
+		newWindow = Coralian.client.common.newWindow, // 打开新窗口
+		htmlEscape = FlyCodes.toHTML, // HTML 变换 和 清理 函数（已结合代码高亮器）
 		unsupportedOperation = Error.unsupportedOperation, // 不被支持的操作
 		textArea, SUBMENU_NAMES = [],
 		language = 'UBB';
@@ -311,7 +310,7 @@ var FlyEditor = (function() {
 					*/
 
 					ul.add(newXmlWrapper('li', {
-						'id': 'lang_ubb',
+						'id': 'lang_hiton',
 						onclick: "FlyEditor.setLanguage('HitOn')"
 					}).add('HitOn'));
 				}

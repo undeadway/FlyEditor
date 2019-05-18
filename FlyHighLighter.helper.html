@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<title>FlyHighLighter帮助文档</title>
+<script type="text/javascript" src="../js/coralian.js"></script>
+<script type="text/javascript" src="./FlyHighLighter.js"></script>
+<link rel="stylesheet" type="text/css" href="./FlyHighLighter.css" />
+<style type="text/css">
+	#left, #right{display: inline-block; vertical-align: top;}
+	#right fieldset{width:720px; min-width72px; max-width:720px;}
+	#left textarea{width:720px; height: 439px;}
+</style>
+</head>
+<body>
+<div id="left">
+	选择一种语言：<select id="select"></select>
+	<input type="button" value="测试效果" onclick="test()" />
+	<br /><textarea id="source"></textarea>
+</div>
+<div id="right">
+</div>
+<script type="text/javascript">
+(function() {
+
+	var langs = FlyHighLighter.getLangs();
+
+	var select = document.getElementById("select");
+	select.appendChild(document.createElement("option"));
+	
+	for (let i = 0, len = langs.length; i < len; i++) {
+		var option = document.createElement("option");
+		option.value = option.innerHTML = langs[i];
+		select.appendChild(option);
+	}
+})();
+
+function test() {
+
+	var html = FlyHighLighter.execute(
+		document.getElementById("source").value,
+		document.getElementById("select").value);
+	document.getElementById("right").innerHTML = html;
+}
+</script>
+</body>
+</html>
