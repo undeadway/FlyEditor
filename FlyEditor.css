@@ -1,7 +1,7 @@
 @CHARSET "UTF-8";
 #tool_bar_div{margin:0px; padding:0px; border:1px solid #000099; border-bottom:0px; padding:2px;
 			 font-size:10pt; width:100%; background:#F7F7F7;}
-.tool_bar_bgimg{background-repeat:no-repeat; background-image:url(/res/flies/icon.gif);}
+.tool_bar_bgimg{background-repeat:no-repeat; background-image:url(./icon.gif);}
 .tool_bar_element, .tool_bar_line, .tool_bar_submenu li span{position:relative; display:inline-table;}
 
 .tool_bar_button{width:20px;}

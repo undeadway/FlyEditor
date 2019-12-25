@@ -3,12 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <title>HitOn 帮助文档</title>
-<script type="text/javascript" src="/res/js/coralian.js"></script>
-<script type="text/javascript" src="/res/js/coralian.client.js"></script>
-<script type="text/javascript" src="/res/js/styles.js"></script>
-<script type="text/javascript" src="/res/flies/FlyCodes.js"></script>
-<script type="text/javascript" src="/res/flies/FlyHighLighter.js"></script>
-<script src="/res/js/utils.js"></script>
+<script type="text/javascript" src="http://res.waygc.net/js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="http://waygc.net/res/js/coralian.js"></script>
+<script type="text/javascript" src="http://waygc.net/res/js/coralian.client.js"></script>
+<script type="text/javascript" src="./FlyCodes.js"></script>
+<script type="text/javascript" src="./FlyHighLighter.js"></script>
 <link rel="stylesheet" type="text/css" href="./FlyShow.css" />
 <link rel="stylesheet" type="text/css" href="./FlyHighLighter.css" />
 <style type="text/css">
@@ -34,8 +33,9 @@ word-wrap: break-word;}
 
 var str = [`
 
->>[$](/mytoy/HitOn.jpg|HitOn)
-?(48:!关于\`HitOn\`!)<<
+>>[$](./HitOn.jpg|HitOn)<<
+
+?(48:!关于\`HitOn\`!)
 
 \`HitOn\`是我之前在写 [#](http://waygc.net/blog/read/1481118431613|凑热闹也来聊聊 Markdown|blank) 的时候，开玩笑说自己也能发明一个轻量级标记语言。
 之后在无聊的时候，就想着是不是真的能去实现一个标记语言来玩玩呢？
@@ -50,7 +50,7 @@ var str = [`
 
 以及，FlyEditor 的前台编辑器尚不支持 图像化 HitOn 输入，得手写。
 不过，作为一个码农，手写点代码，应该不成问题吧？
-反正我自己造的轮子，从来也就不友好～`
+反正我自己造的玩具，友好度就不考虑了吧～`
 ];
 	(function() {
 		for (var i = 0, len = str.length; i < len; i++) {
@@ -73,7 +73,7 @@ var hitOnObj = [
 	 ["{{注音(zhuyin)}}","注音"],
 	 ["[[预定义段落\n这里就是第二行\n\n中间空两行\n\n<br \\/>标签无效]]","预定义段落"],
 	 ["[#](https://www.baidu.com)","超链接"],
-	 ["[$](../imgs/LOGO.png)","图像"],
+	 ["[$](http://waygc.net/res/imgs/LOGO.png)","图像"],
 	 ["[@](undeadway@163.com)","邮件"],
 	 ["[V](https://v.qq.com/txp/iframe/player.html?vid=e0866rwgz0y|width=500|height=400)","视频"],
 	 ["```javascript\nvar a = 'a';```","代码（依赖插件实现）"],

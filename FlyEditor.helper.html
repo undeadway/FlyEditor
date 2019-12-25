@@ -3,48 +3,34 @@
 <head>
 <meta charset="UTF-8" />
 <title>FlyEtitor 使用说明</title>
-<script type="text/javascript" src="../js/coralian.js"></script>
-<script type="text/javascript" src="../js/coralian.client.js"></script>
+<script type="text/javascript" src="http://res.waygc.net/js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="http://waygc.net/res/js/coralian.js"></script>
+<script type="text/javascript" src="http://waygc.net/res/js/coralian.client.js"></script>
 <script type="text/javascript" src="./FlyHighLighter.js"></script>
 <script type="text/javascript" src="./FlyCodes.js"></script>
-<script type="text/javascript">
-/*
- * 这个 NameBridge 的主要作用就是一个桥接器
- * 这样只要调用这个中间桥接器就可以利用到接口定义好的方法
- * 而不用去管对方是那种实现了
- */
-var NameBridge = {
-	/*
-	 * 接口定义方法：
-	 * 
-	 * String toHTML(String input, String language);
-	 * String clear(String input);
-	 */
-	codes : window.FlyCodes,
-	/*
-	 * 接口定义方法：
-	 * 
-	 * String execute(String input, String language);
-	 */
-	HighLighter : window.FlyHighLighter
-}
-</script>
-<script type="text/javascript" src="/res/js/utils.js"></script>
-<script type="text/javascript" src="/res/flies/FlyEditor.js"></script>
-<link rel="stylesheet" type="text/css" href="/res/flies/FlyEditor.css" />
-</head>
-<body>
-<ul>
-	<li><a href="#flyeditor">前台编辑器</a></li>
-	<li><a href="./FlyEditor.UBB.helper.html" target="_blank">UBB</a></li>
-	<li><a href="./HitOn.helper.html" target="_blank">HitOn</a></li>
-</ul>
+<script type="text/javascript" src="./FlyEditor.js"></script>
+<link rel="stylesheet" type="text/css" href="./FlyEditor.css" />
 <style type="text/css">
 	#test{width:500px; height: 100px;}
 </style>
+</head>
+<body>
+<div>FlyEditor 包含了两个组成部分。
+<ol type="1">
+	<li>前台富文本编辑器</li>
+	<li>FlyCodes</li>
+</ol>
+<h3>1. 前台富文本编辑器</h3>
+<p>前台富文本编辑器是用来输入内容的网页编辑器。内置了两种：<a href="./FlyCodes.UBB.helper.html" target="_blank">UBB</a> 和 <a href="./HitOn.helper.html" target="_blank">HitOn</a> 两种语言。<p>
+<p>其中，UBB可以通过界面操作来实现，HitOn则无法通过界面操作来实现。但无论哪种方式，目前都不支持所见即所得，需要进行预览。</p>
+<p>富文本编辑器的实例如下：</p>
 <div id="content_div"></div>
 <script type="text/javascript">
 FlyEditor.apply();
 </script>
+<h3>2. FlyCodes</h3>
+<p>FlyCodes 是前台富文本编辑器所用到的语言编码器，正因为有了它，FlyEditor 才能使用预览功能。</p>
+<p>仓库：<a href="https://gitee.com/undeadway/FlyCodes" target="_blank">https://gitee.com/undeadway/FlyCodes</a></p>
+</div>
 </body>
 </html>

@@ -3,7 +3,10 @@
 <head>
 <meta charset="UTF-8" />
 <title>FlyHighLighter帮助文档</title>
-<script type="text/javascript" src="../js/coralian.js"></script>
+<script type="text/javascript" src="http://res.waygc.net/js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="http://res.waygc.net/js/marked.min.js"></script>
+<script type="text/javascript" src="http://waygc.net/res/js/coralian.js"></script>
+<script type="text/javascript" src="http://waygc.net/res/js/coralian.client.js"></script>
 <script type="text/javascript" src="./FlyHighLighter.js"></script>
 <link rel="stylesheet" type="text/css" href="./FlyHighLighter.css" />
 <style type="text/css">
@@ -13,6 +16,7 @@
 </style>
 </head>
 <body>
+<div id="readme"></div>
 <div id="left">
 	选择一种语言：<select id="select"></select>
 	<input type="button" value="测试效果" onclick="test()" />
@@ -22,6 +26,14 @@
 </div>
 <script type="text/javascript">
 (function() {
+
+	$.get({
+		url : "./README.md",
+		dataType: "text",
+		success : function(req) {
+			$("#readme").html(marked(req));
+		}
+	});
 
 	var langs = FlyHighLighter.getLangs();
 
