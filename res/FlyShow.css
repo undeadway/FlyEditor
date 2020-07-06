@@ -15,7 +15,7 @@ fieldset legend{font-weight:bold; color:#014387; border:1px solid #c4c4c4; backg
 }
 .fieldset div{max-width:780px; overflow:auto;}
 
-/* 这里的 code 是用 code 标签围起来的内容用，和通过 fileset 围起来的代码是两样东西 */
+/* 这里的 code 是用 code 标签围起来的内容，和通过 fileset 围起来的代码是两样东西 */
 code{background:#f6feff; font-family:Courier New; padding:2px 4px; margin:0px 4px 2px 4px; border:1px solid #eaeaea;
 	-moz-border-radius:3px; -webkit-border-radius:3px; border-radius:3px;
 }

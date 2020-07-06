@@ -20,12 +20,12 @@ var FlyEditor = (function () {
 		//showElement = Coralian.client.dom.showElement, // 隐藏元素
 		newXmlWrapper = Coralian.dom.newXmlWrapper, // newXmlWrapper
 		newWindow = Coralian.client.common.newWindow, // 打开新窗口
-		decodes = FlyCodes, // HTML 变换 和 清理 函数（已结合代码高亮器）
 		unsupportedOperation = Error.unsupportedOperation, // 不被支持的操作
-		textArea, SUBMENU_NAMES = [],
-		language = 'UBB';
+		SUBMENU_NAMES = [],
+		language = 'UBB',
+		textArea;
 
-	decodes.setHighLighter(FlyHighLighter.execute);
+	FlyCodes.setHighLighter(FlyHighLighter.execute);
 
 	const FACE_NAME = ['黑线', '怒', '眼泪', '炸毛', '蛋定', '微笑', '汗', '囧', '卧槽', '坏笑', '鼻血', '大姨妈', '瞪眼', '你说啥', '一脸血', '害羞',
 		'大好', '喝茶看戏', '美～', '笑岔', '中箭', '呕', '撇嘴', '碎掉', '吐舌头', '纳尼', '泪流满面', '升仙', '扭曲', '闪闪亮', '山', '寨', '基',
@@ -47,7 +47,7 @@ var FlyEditor = (function () {
 		'Times New Roman': 'timesnewroman'
 	};
 
-	decodes.addPlugIn({
+	FlyCodes.addPlugIn({
 		queue: [
 			(input) => { // 表情
 				for (var i = 0, len = FACE_NAME.length; i < len; i++) {
@@ -834,7 +834,7 @@ var FlyEditor = (function () {
 	}
 
 	return {
-		apply: function (text, lang) {
+		apply: function (text) {
 
 			if (!textArea) {
 
@@ -860,7 +860,7 @@ var FlyEditor = (function () {
 		},
 		help: function () {
 			hideSubMenu();
-			newWindow("//codes.waygc.net/fly/FlyEditor.helper.html");
+			newWindow("./FlyEditor.helper.html");
 		},
 		preview: function () {
 			hideSubMenu();
@@ -873,7 +873,7 @@ var FlyEditor = (function () {
 				}
 				var html = '<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8" /><link rel="stylesheet" type="text/css" href="./FlyShow.css" />' +
 					'<link rel="stylesheet" type="text/css" href="./FlyHighLighter.css" /><title>' + title
-					 + ' 预览</title></head><body>' + decodes.toHTML(textArea.value, language) + '</body></html>';
+					 + ' 预览</title></head><body>' + FlyCodes.toHTML(textArea.value, language) + '</body></html>';
 				var pvWindow = newWindow('FlyEditor Preview', Date.now(),
 					'width=800,height=600,resizable=no,scrollbars=yes');
 				pvWindow.document.write(html);

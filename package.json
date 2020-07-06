@@ -1,0 +1,26 @@
+{
+  "name": "flycodes",
+  "version": "0.0.1",
+  "description": "A parser of rich text editor.",
+  "main": "./src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitee.com/undeadway/FlyCodes.git"
+  },
+  "keywords": [
+    "expands",
+    "javascript"
+  ],
+  "author": "hzwaygc@gmail.com",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://gitee.com/undeadway/FlyCodes/issues"
+  },
+  "homepage": "http://codes.waygc.net/fly/FlyCodes.helper.html",
+  "dependencies": {
+    "coralian": "0.0.19"
+  }
+}
